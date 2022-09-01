@@ -7,8 +7,6 @@ on:
   # Triggers the workflow on push or pull request events but only for the "master" branch
   push:
     branches: [ "master" ]
-  pull_request:
-    branches: [ "master" ]
 
   # Allows you to run this workflow manually from the Actions tab
   workflow_dispatch:
@@ -26,11 +24,26 @@ jobs:
       - uses: actions/checkout@v3
 
       # Runs a single command using the runners shell
-      - name: Run a one-line script
-        run: echo Hello, world!
+      - name: Step 2 - Set up JDK 11
+        uses: actions/setup-java@v1 
 
       # Runs a set of commands using the runners shell
-      - name: Run a multi-line script
-        run: |
-          echo Add other actions to build,
-          echo test, and deploy your project.
+      - name: Compile and Package
+        run: mvn -B package --file ./my-app/pom.xml
+
+      # Runs a set of commands using the runners shell
+      - name: Setting-up Docker
+        run: echo "What ever my bro"
+
+      # Runs a set of commands using the runners shell
+      - name: Login to DockerHub
+        run: echo "Login to DockerHub"
+      
+      # Runs a set of commands using the runners shell
+      - name: Build image from Dockerfile
+        run: echo "Build image from Dockerfile"
+
+      
+      # Runs a set of commands using the runners shell
+      - name: Push to DockerHub
+        run: echo "Push to DockerHub"      
