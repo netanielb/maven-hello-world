@@ -25,7 +25,9 @@ jobs:
 
       # Runs a single command using the runners shell
       - name: Step 2 - Set up JDK 11
-        uses: actions/setup-java@v1 
+        uses: actions/setup-java@v1
+        with:
+          java-version: 1.8
 
       # Runs a set of commands using the runners shell
       - name: Compile and Package
