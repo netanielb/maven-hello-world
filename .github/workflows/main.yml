@@ -30,22 +30,29 @@ jobs:
           java-version: 1.8
 
       # Runs a set of commands using the runners shell
-      - name: Compile and Package
+      - name: Step 3 - Compile and Package
         run: mvn -B package --file ./my-app/pom.xml
 
       # Runs a set of commands using the runners shell
-      - name: Setting-up Docker
-        run: echo "What ever my bro"
+      - name: Step 4 - Setup Docker Buildxx
+        uses: docker/setup-buildx-action@v1
 
       # Runs a set of commands using the runners shell
-      - name: Login to DockerHub
-        run: echo "Login to DockerHub"
+      - name: Step 6 - Login to DockerHub
+        uses: docker/login-action@v1
+        with:
+          username: '${{secrets.DOCKERHUB_USERNAME}}'
+          password: '${{secrets.DOCKERHUB_TOKEN}}'
       
       # Runs a set of commands using the runners shell
       - name: Build image from Dockerfile
-        run: echo "Build image from Dockerfile"
+        run: docker build -t netanielb/testi .
 
       
       # Runs a set of commands using the runners shell
       - name: Push to DockerHub
-        run: echo "Push to DockerHub"      
+        run: docker push netanielb/testi      
+
+      # Runs a set of commands using the runners shell
+      - name: Pull from DockerHub and run a container
+        run: echo "Run the image"      
